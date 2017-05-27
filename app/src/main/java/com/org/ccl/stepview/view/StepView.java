@@ -112,25 +112,39 @@ public class StepView extends View {
         int centerIndex = mData.size() % 2 != 0 ? (int) Math.ceil(mData.size() / 2.0f) - 1 : mData.size() / 2 - 1;
         for (int i = 0; i < mData.size(); i++) {
             MyStepInfoBean item = mData.get(i);
-            int centerX = (mOrientation == ORIENTATION_HORIZONTAL ? mWidth : mHeight)/2;
-            int centerY = (mOrientation == ORIENTATION_HORIZONTAL ? mHeight : mWidth)/2;
+            int centerX = (mOrientation == ORIENTATION_HORIZONTAL ? mWidth : mHeight) / 2;
+            int centerY = (mOrientation == ORIENTATION_HORIZONTAL ? mHeight : mWidth) / 2;
             int bitmapCenter = mData.size() % 2 != 0 ? centerX - (centerIndex - i) * (mLineHeight + mRadiu * 2) : (int) (centerX - (centerIndex - i + 0.5) * (mLineHeight + mRadiu * 2));
-            Rect srcBitmapRect = new Rect(bitmapCenter - mRadiu, centerY - mRadiu, bitmapCenter + mRadiu, centerY + mRadiu);
+            Rect srcBitmapRect = mOrientation == ORIENTATION_HORIZONTAL ? new Rect(bitmapCenter - mRadiu, centerY - mRadiu, bitmapCenter + mRadiu, centerY + mRadiu) :
+                    new Rect(centerY - mRadiu, bitmapCenter - mRadiu, centerY + mRadiu, bitmapCenter + mRadiu);
             canvas.drawBitmap(item.getStatus() == MyStepInfoBean.StepStatus.COMPLETED ? mIconCheck :
                     item.getStatus() == MyStepInfoBean.StepStatus.COMPLETING ? mIconExclamationMark :
                             mIconCircle, item.getStatus() == MyStepInfoBean.StepStatus.COMPLETED ? mCheckRect :
                     item.getStatus() == MyStepInfoBean.StepStatus.COMPLETING ? mExclamationMarkRect :
                             mCircleRect, srcBitmapRect, mIconPaint);
             float v = mCompletePaint.measureText(item.getName());
-            canvas.drawText(item.getName(), bitmapCenter - v / 2, centerY + mRadiu * 2, mCompletePaint);
+            if (mOrientation == ORIENTATION_HORIZONTAL) {
+                canvas.drawText(item.getName(), bitmapCenter - v / 2, centerY + mRadiu * 2, mCompletePaint);
+            } else {
+                canvas.drawText(item.getName(), centerY + mRadiu * 2, bitmapCenter, mCompletePaint);
+            }
+
             if (i < mData.size() - 1) {
                 int lineLeft = mData.size() % 2 != 0 ? (int) (centerX - (centerIndex - i) * mLineHeight - (centerIndex - i - 0.5) * mRadiu * 2) : (int) (centerX - (centerIndex - i + 0.5) * mLineHeight - (centerIndex - i) * mRadiu * 2);
                 if (mData.get(i + 1).getStatus() == MyStepInfoBean.StepStatus.UNCOMPLETED) {
                     for (int j = 0; j < 6; j++) {
-                        canvas.drawLine(lineLeft + (mDashHeight + mDashPadding) * j, centerY - 2, lineLeft + mDashHeight * (j + 1) + mDashPadding * j, centerY - 2, mUnCompleted);
+                        if (mOrientation == ORIENTATION_HORIZONTAL) {
+                            canvas.drawLine(lineLeft + (mDashHeight + mDashPadding) * j, centerY - 2, lineLeft + mDashHeight * (j + 1) + mDashPadding * j, centerY - 2, mUnCompleted);
+                        } else {
+                            canvas.drawLine(centerY - 2, lineLeft + (mDashHeight + mDashPadding) * j, centerY - 2, lineLeft + mDashHeight * (j + 1) + mDashPadding * j, mUnCompleted);
+                        }
                     }
                 } else {
-                    canvas.drawLine(lineLeft, centerY - 2, lineLeft + mLineHeight, centerY - 2, mCompletePaint);
+                    if (mOrientation == ORIENTATION_HORIZONTAL) {
+                        canvas.drawLine(lineLeft, centerY - 2, lineLeft + mLineHeight, centerY - 2, mCompletePaint);
+                    } else {
+                        canvas.drawLine(centerY - 2, lineLeft, centerY - 2, lineLeft + mLineHeight, mCompletePaint);
+                    }
                 }
             }
         }
