@@ -14,7 +14,7 @@
 **STEP2 Add the dependency**
 
 	    dependencies {
-	        compile 'com.github.chencanlin:RoundRectImageView:1.0.0'
+	        compile 'com.github.chencanlin:StepView:1.1.0'
 	}
 
 **效果预览**
@@ -29,6 +29,9 @@
             android:layout_height="match_parent"
             android:background="#66C9F7"
             app:orientation="horizontal"
+			app:icon_completed="@drawable/icon_check"
+            app:icon_uncompleted="@drawable/icon_circle"
+            app:icon_completing="@drawable/icon_exclamation_mark"
             />
 
 	 fourData.add(new MyStepInfoBean("接单",MyStepInfoBean.StepStatus.COMPLETED));
@@ -55,6 +58,9 @@
             android:layout_height="match_parent"
             android:background="#66C9F7"
             app:orientation="vertical"
+			app:icon_completed="@drawable/icon_check"
+            app:icon_uncompleted="@drawable/icon_circle"
+            app:icon_completing="@drawable/icon_exclamation_mark"
             />
 		fourData.add(new MyStepInfoBean("接单",MyStepInfoBean.StepStatus.COMPLETED));
         fourData.add(new MyStepInfoBean("打包",MyStepInfoBean.StepStatus.COMPLETED));
