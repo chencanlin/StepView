@@ -14,7 +14,7 @@ public class MyStepInfoBean {
     }
 
     public enum StepStatus {
-        COMPLETED,UNCOMPLETED,COMPLETING;
+        COMPLETED,UNCOMPLETED,COMPLETING
     }
 
     public String getName() {

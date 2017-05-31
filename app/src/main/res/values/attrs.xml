@@ -9,5 +9,8 @@
             <enum name="vertical" value="0"/>
             <enum name="horizontal" value="1"/>
         </attr>
+        <attr name="icon_completed" format="reference"/>
+        <attr name="icon_uncompleted" format="reference"/>
+        <attr name="icon_completing" format="reference"/>
     </declare-styleable>
 </resources>

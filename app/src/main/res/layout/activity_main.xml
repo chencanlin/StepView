@@ -44,6 +44,9 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="#66C9F7"
+            app:icon_completed="@drawable/icon_check"
+            app:icon_uncompleted="@drawable/icon_circle"
+            app:icon_completing="@drawable/icon_exclamation_mark"
             />
 
     </LinearLayout>
